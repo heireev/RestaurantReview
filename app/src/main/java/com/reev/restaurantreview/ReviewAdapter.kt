@@ -8,9 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 
 class ReviewAdapter(private val listReview: List<String>) : RecyclerView.Adapter<ReviewAdapter.ViewHolder>() {
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ReviewAdapter.ViewHolder {
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int) =
         ViewHolder(LayoutInflater.from(viewGroup.context).inflate(R.layout.item_review, viewGroup, false))
-    }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         viewHolder.tvItem.text = listReview[position]
