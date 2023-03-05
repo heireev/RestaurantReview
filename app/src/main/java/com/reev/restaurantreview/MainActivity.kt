@@ -2,36 +2,34 @@ package com.reev.restaurantreview
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.telecom.Call
 import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.reev.restaurantreview.databinding.ActivityMainBinding
+import retrofit2.Call
 import retrofit2.Response
-import javax.security.auth.callback.Callback
+import retrofit2.Callback
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-
     companion object {
         private const val TAG = "MainActivity"
         private const val RESTAURANT_ID = "uewq1zg2zlskfw1e867"
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         supportActionBar?.hide()
-
         val layoutManager = LinearLayoutManager(this)
         binding.rvReview.layoutManager = layoutManager
         val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
         binding.rvReview.addItemDecoration(itemDecoration)
-
         findRestaurant()
     }
 
@@ -54,14 +52,12 @@ class MainActivity : AppCompatActivity() {
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
             }
-
             override fun onFailure(call: Call<RestaurantResponse>, t: Throwable) {
                 showLoading(false)
                 Log.e(TAG, "onFailure: ${t.message}")
             }
         })
     }
-
     private fun setRestaurantData(restaurant: Restaurant) {
         binding.tvTitle.text = restaurant.name
         binding.tvDescription.text = restaurant.description
@@ -83,11 +79,10 @@ class MainActivity : AppCompatActivity() {
         binding.rvReview.adapter = adapter
         binding.edReview.setText("")
     }
-
     private fun showLoading(isLoading: Boolean) {
-        is (isLoading) {
+        if (isLoading) {
             binding.progressBar.visibility = View.VISIBLE
-        }else {
+        } else {
             binding.progressBar.visibility = View.GONE
         }
     }
