@@ -9,7 +9,7 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface ApiService {
-    @GET("detail/id")
+    @GET("detail/{id}")
     fun getRestaurant(
         @Path("id") id: String
     ): Call<RestaurantResponse>
